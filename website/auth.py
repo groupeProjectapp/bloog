@@ -34,7 +34,7 @@ def is_valid_password(password):
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        email='cicada.3ci@gmail.com'
+        email='cicada.winner4567@gmail.com'
         password=request.form.get('password')
         user=User.query.filter_by(email=email).first()
         if user:
