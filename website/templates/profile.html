@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+
+
+
+{% block content%}
+<h1 class="text-center"> {{user_profile.name}}'s Posts</h1> <br><br>
+{% for post in posts %}
+<div class="card border-dark mb-3">
+    <div class="card-header d-flex justify-content align-items-center">
+        <strong>Author:</strong>{{ post.author.name }}
+    </div>
+    <div class="card-body">
+        <strong>Title:</strong> {{ post.title }}<br>
+        <strong>Content:</strong> {{ post.content }}<br>
+    </div>
+    <div class="card-footer text-muted">
+        <strong>Date:</strong> {{ post.date.strftime('%Y-%m-%d %H:%M:%S') }}
+        <div class="d-flex justify-content-end">
+            {% if post.author.id == current_user.id %}
+            <form action="{{ url_for('views.delete_post', post_id=post.id) }}" method="post" style="display:inline;">
+                <button type="submit" class="btn btn-danger me-2">Delete Post</button>
+            </form>
+            <a href="{{ url_for('views.edit_post', post_id=post.id) }}" class="btn btn-warning" style="margin-right: 10px; margin-left: 10px">Edit Post</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endfor %}
+<div class="fixed-bottom d-flex justify-content-start p-3">
+    <a href="/home" class="btn  btn-success btn-lg" style="margin-right: 10px; margin-left: 10px">Home</a>
+</div>
+{% endblock %}
